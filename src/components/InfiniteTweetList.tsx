@@ -22,7 +22,7 @@ type InifiteTweetListProps = {
   isError: boolean;
   hasMore: boolean | undefined;
   fetchNewTweets: () => Promise<unknown>;
-  tweets?: Tweet[];
+  tweets?: Tweet[] | undefined;
 };
 
 function InfiniteTweetList({
@@ -71,18 +71,16 @@ function TweetCard({
   const trpcUtils = api.useContext();
   const toggleLike = api.tweet.toggleLike.useMutation({
     onSuccess: ({ addedLike }) => {
-      const updateData: Parameters<
-        typeof trpcUtils.tweet.infiniteFeed.setInfiniteData
-      >[1] = (oldData) => {
+      const updateData: any = (oldData: any) => {
         if (oldData == null) return;
         const countModifier = addedLike ? 1 : -1;
 
         return {
           ...oldData,
-          pages: oldData.pages.map((page) => {
+          pages: oldData.pages.map((page: any) => {
             return {
               ...page,
-              tweets: page.tweets.map((tweet) => {
+              tweets: page.tweets.map((tweet: any) => {
                 if (tweet.id === id) {
                   return {
                     ...tweet,
