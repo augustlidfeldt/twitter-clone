@@ -75,7 +75,7 @@ const ProfilePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
       </header>
       <main>
         <InfiniteTweetList
-          tweets={tweets.data?.pages.flatMap((page) => page.tweets)}
+          tweets={tweets.data?.pages.flatMap((page) => page!.tweets)}
           isError={tweets.isError}
           isLoading={tweets.isLoading}
           hasMore={tweets.hasNextPage}
